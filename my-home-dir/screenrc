@@ -60,6 +60,28 @@ bind } history
 #
 #bind ^B eval "hardcopy_append off" "hardcopy -h $HOME/.screen-urlview" "screen urlview $HOME/.screen-urlview"
 
+# Notes:
+# * To start navigating history (i.e., to be in copy mode), enter ctrl-a and then type '[' (sans quotes).
+# * To exit copy mode, once again type '[' (sans quotes).
+# * (ctrl-a and then 'esc' key) also acts like (ctrl-a and then '[').
+# * In copy mode, the begin/end of range to copy are each marked by hitting space.
+#   One way to get out of copy mode is to just hit space twice.
+#   Another way is to hit any key that's NOT meaningful when in copy mode.
+#
+# When in copy mode, here's how to navigate:
+# h -    Move the cursor left by one character
+# j -    Move the cursor down by one line
+# k -    Move the cursor up by one line
+# l -    Move the cursor right by one character
+# 0 -    Move to the beginning of the current line
+# $ -    Move to the end of the current line.
+# G -    Moves to the specified line
+#        (defaults to the end of the buffer).
+# C-u -  Scrolls a half page up.
+# C-b -  Scrolls a full page up.
+# C-d -  Scrolls a half page down.
+# C-f -  Scrolls the full page down.
+
 # ------------------------------------------------------------------------------
 # TERMINAL SETTINGS
 # ------------------------------------------------------------------------------

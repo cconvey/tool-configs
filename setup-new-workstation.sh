@@ -6,6 +6,8 @@
 
 # TODO: add packages and do apt-file udpate
 
+# TODO: Install Vundle
+
 # TODO: enable inbound ssh
 
 # TODO: establish SSH credentials with spaceman

@@ -1,5 +1,56 @@
-set tags=./tags;
-set number
+" """"""""""""""""""""""""""""""""""""""""
+" For Vundle...
+" """"""""""""""""""""""""""""""""""""""""
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+Plugin 'scrooloose/nerdtree'
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+
+
+
+" Put your non-Plugin stuff after this line
+
+" """"""""""""""""""""""""""""""""""""""""
+" End Vundle
+" """"""""""""""""""""""""""""""""""""""""
+
+"let g:NERDTreeIndicatorMapCustom = {
+"    \ "Modified"  : "✹",
+"    \ "Staged"    : "✚",set tags=./tags;
+"    \ "Untracked" : "✭",set number
+"    \ "Renamed"   : "➜","
+"    \ "Unmerged"  : "═","
+"    \ "Deleted"   : "✖","
+"    \ "Dirty"     : "✗","
+"    \ "Clean"     : "✔︎","
+"    \ "Unknown"   : "?""
+"    \ }"
+map <C-n> :NERDTreeToggle<CR>
 
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
@@ -14,5 +65,20 @@ nnoremap td  :tabclose<CR>
 "nnoremap tl :tabprev<CR>
 "nnoremap tn :tabnew<CR>
 
+
+
+" This doesn't get along with Vundle's installer command:
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+
+autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 autocmd VimEnter * tab all
-autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+
+
+
+"
+" " tab key = 4 spaces
+" set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
