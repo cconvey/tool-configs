@@ -1,0 +1,10 @@
+#!/bin/bash
+set -u
+set -e
+
+F=$(mktemp)
+git diff -w --no-color $@ > ${F}
+if [[ -s ${F} ]]; then
+    cat ${F} | git apply --cached --ignore-whitespace -
+fi
+rm ${F}

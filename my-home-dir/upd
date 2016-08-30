@@ -1,0 +1,1 @@
+sudo aptitude update && sudo aptitude upgrade
