@@ -15,8 +15,11 @@ export VISUAL=/usr/bin/vim
 
 ulimit -c unlimited
 
-alias find_h='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp|h)"'
+alias find_h="/usr/bin/find -name '*.h'"
 alias find_src='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp)"'
-alias find_h_and_src='/usr/bin/find -regextype posix-extended -regex ".*\.h"'
+alias find_h_and_src='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp|h)"'
+alias find_o="/usr/bin/find -name '*.o'"
+
+export GREP_OPTIONS='-n --color'
 
 unset -v THIS_SCRIPT_DIR
