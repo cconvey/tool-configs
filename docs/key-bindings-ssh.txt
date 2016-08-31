@@ -1,0 +1,8 @@
+See http://unix.stackexchange.com/questions/13996/how-can-i-break-away-from-an-ssh-session-that-has-crashed
+
+<CR> then "~" then "?" : SSH client key-binding help.
+<CR> then "~" then "." : SSH client key-binding help.
+<CR> then "~" then <CTRL>+"Z" : Suspend client SSH process.
+<CR> then "~" then "?" : SSH client key-binding help.
+<CR> then "~" then "~" : Send literal "~" to remote session.
+
