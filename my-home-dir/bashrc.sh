@@ -22,4 +22,22 @@ alias find_o="/usr/bin/find -name '*.o'"
 
 export GREP_OPTIONS='-n --color'
 
+declare POWERLINE_DAEMON
+if POWERLINE_DAEMON=$(which powerline-daemon); then
+    powerline-daemon -q || true
+
+    declare POWERLINE_REPOSITORY_ROOT
+    if POWERLINE_REPOSITORY_ROOT=$(pip show powerline-status | env -u GREP_OPTIONS grep Location: | sed 's/Location: //'); then
+        if [[ ! -z "${POWERLINE_REPOSITORY_ROOT}" ]]; then
+            declare POWERLINE_BASH_SCRIPT=${POWERLINE_REPOSITORY_ROOT}/powerline/bindings/bash/powerline.sh
+            if [[ -f  ${POWERLINE_BASH_SCRIPT} ]]; then
+                declare POWERLINE_BASH_CONTINUATION=1
+                declare POWERLINE_BASH_SELECT=1
+                source ${POWERLINE_BASH_SCRIPT}
+            fi
+        fi
+    fi
+fi
+
+
 unset -v THIS_SCRIPT_DIR
