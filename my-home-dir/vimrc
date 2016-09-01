@@ -11,11 +11,20 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-"Plugin 'scrooloose/nerdtree'
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
+" Primary key bindings:
+" <leader>be
+" <leader>bt
+" <leader>bs
+" <leader>bv
+Plugin 'jlanzarotta/bufexplorer'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -41,17 +50,6 @@ filetype plugin indent on    " required
 
 set number
 
-"let g:NERDTreeIndicatorMapCustom = {
-"    \ "Modified"  : "✹",
-"    \ "Staged"    : "✚",set tags=./tags;
-"    \ "Untracked" : "✭",set number
-"    \ "Renamed"   : "➜","
-"    \ "Unmerged"  : "═","
-"    \ "Deleted"   : "✖","
-"    \ "Dirty"     : "✗","
-"    \ "Clean"     : "✔︎","
-"    \ "Unknown"   : "?""
-"    \ }"
 map <C-n> :NERDTreeToggle %:p:h<CR>
 
 "let NERDTreeMapOpenInTab='<ENTER>'
@@ -75,11 +73,12 @@ autocmd BufEnter * lcd %:p:h
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-autocmd VimEnter * tab all
+"autocmd VimEnter * tab all
 
 colorscheme desert
 set t_Co=256
 
+:nnoremap <F5> :buffers<CR>:buffer<Space>
 
 
 " tab key = 4 spaces
@@ -88,7 +87,7 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 " Enable syntax highlighting when buffers are displayed in a window through
 " :argdo and :bufdo, which disable the Syntax autocmd event to speed up
 " processing.
-augroup EnableSyntaxHighlighting
+"augroup EnableSyntaxHighlighting
     " Filetype processing does happen, so we can detect a buffer initially
     " loaded during :argdo / :bufdo through a set filetype, but missing
     " b:current_syntax. Also don't do this when the user explicitly turned off
@@ -110,7 +109,7 @@ augroup EnableSyntaxHighlighting
     " Note: Must allow nesting of autocmds so that the :syntax enable triggers
     " the ColorScheme event. Otherwise, some highlighting groups may not be
     " restored properly.
-    autocmd! BufWinEnter,WinEnter * nested if exists('syntax_on') && ! exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') == -1 | syntax enable | endif
+ "   autocmd! BufWinEnter,WinEnter * nested if exists('syntax_on') && ! exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') == -1 | syntax enable | endif
 
     " The above does not handle reloading via :bufdo edit!, because the
     " b:current_syntax variable is not cleared by that. During the :bufdo,
@@ -119,7 +118,7 @@ augroup EnableSyntaxHighlighting
     " 'eventignore', an immediate :syntax enable is ignored, but by clearing
     " b:current_syntax, the above handler will do this when the reloaded buffer
     " is displayed in a window again.
-    autocmd! BufRead * if exists('syntax_on') && exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') != -1 | unlet! b:current_syntax | endif
+"    autocmd! BufRead * if exists('syntax_on') && exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') != -1 | unlet! b:current_syntax | endif
 augroup END
 
 " Enabling this causes ctrl-n to no longer activate nerdtree.
