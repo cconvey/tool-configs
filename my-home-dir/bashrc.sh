@@ -22,22 +22,57 @@ alias find_o="/usr/bin/find -name '*.o'"
 
 export GREP_OPTIONS='-n --color'
 
-declare POWERLINE_DAEMON
-if POWERLINE_DAEMON=$(which powerline-daemon 2>/dev/null); then
-    powerline-daemon -q || true
-
-    declare POWERLINE_REPOSITORY_ROOT
-    if POWERLINE_REPOSITORY_ROOT=$(pip show powerline-status | env -u GREP_OPTIONS grep Location: | sed 's/Location: //'); then
-        if [[ ! -z "${POWERLINE_REPOSITORY_ROOT}" ]]; then
-            declare POWERLINE_BASH_SCRIPT=${POWERLINE_REPOSITORY_ROOT}/powerline/bindings/bash/powerline.sh
-            if [[ -f  ${POWERLINE_BASH_SCRIPT} ]]; then
-                declare POWERLINE_BASH_CONTINUATION=1
-                declare POWERLINE_BASH_SELECT=1
-                source ${POWERLINE_BASH_SCRIPT}
-            fi
-        fi
+function find_powerline_daemon {
+    if which powerline-daemon 2>/dev/null; then
+        return 0
+    else
+        return 1
     fi
-fi
+}
 
+function find_powerline_bash_script {
+    local POWERLINE_REPOSITORY_ROOT
+    if ! POWERLINE_REPOSITORY_ROOT=$(
+        pip show powerline-status            2>/dev/null |
+        env -u GREP_OPTIONS grep "Location:" 2>/dev/null |
+        sed 's/Location: //'                 2>/dev/null
+        ) 2>/dev/null ;
+    then
+        return 1
+    fi
+
+    if [[ -z "${POWERLINE_REPOSITORY_ROOT}" ]]; then
+        return 1
+    fi
+
+    local POWERLINE_BASH_SCRIPT=${POWERLINE_REPOSITORY_ROOT}/powerline/bindings/bash/powerline.sh
+    if [[ ! -f  ${POWERLINE_BASH_SCRIPT} ]]; then
+        return 1
+    fi
+
+    echo "${POWERLINE_BASH_SCRIPT}"
+    return 0
+}
+
+function setup_powerline {
+    local POWERLINE_DAEMON
+    if ! POWERLINE_DAEMON=$(find_powerline_daemon); then
+        return 1
+    fi
+
+    local POWERLINE_BASH_SCRIPT
+    if ! POWERLINE_BASH_SCRIPT=$(find_powerline_bash_script); then
+        return 1
+    fi
+
+    "${POWERLINE_DAEMON}" -q || true
+
+    declare -g POWERLINE_BASH_CONTINUATION=1
+    declare -g POWERLINE_BASH_SELECT=1
+    source ${POWERLINE_BASH_SCRIPT}
+    return 0
+}
+
+setup_powerline || true
 
 unset -v THIS_SCRIPT_DIR
