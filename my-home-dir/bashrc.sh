@@ -23,7 +23,7 @@ alias find_o="/usr/bin/find -name '*.o'"
 export GREP_OPTIONS='-n --color'
 
 declare POWERLINE_DAEMON
-if POWERLINE_DAEMON=$(which powerline-daemon); then
+if POWERLINE_DAEMON=$(which powerline-daemon 2>/dev/null); then
     powerline-daemon -q || true
 
     declare POWERLINE_REPOSITORY_ROOT
