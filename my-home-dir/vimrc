@@ -26,7 +26,9 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 " <leader>bv
 Plugin 'jlanzarotta/bufexplorer'
 
-" All of your Plugins must be added before the following line
+Plugin 'vim-scripts/taglist.vim'
+
+"All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
