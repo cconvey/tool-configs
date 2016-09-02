@@ -50,9 +50,24 @@ filetype plugin indent on    " required
 " End Vundle
 " """"""""""""""""""""""""""""""""""""""""
 
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+" get hostname
+let machine = substitute(system('hostname'), "\n", "", "")
+" auto strip whitespace when saving
+" don't auto strip on these machines
+"echo 'machine: ' machine
+if (machine ==? 'spaceman') || (machine ==? 'tracerb')
+"if machine =~ '[spaceman|tracerb]'
+    "echo "MATCH"
+    " Not all machines have powerline installed.  Base it on machine name, for
+    " now.
+    python from powerline.vim import setup as powerline_setup
+    python powerline_setup()
+    python del powerline_setup
+else
+    "echo "NO MATCH"
+endif
+
+
 set laststatus=2
 
 set number

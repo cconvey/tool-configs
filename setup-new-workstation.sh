@@ -88,3 +88,7 @@ declare -a VIM_APT_PACKAGES=(
 # TODO: setup repo clones
 
 # TODO: copy / sync scripts (via scratch repo?)
+
+# TODO: setup .gitrc files as appropriate
+# git config --global core.excludesfile ~/.gitignore_global
+
