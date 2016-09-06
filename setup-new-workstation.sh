@@ -68,6 +68,11 @@ declare -a VIM_APT_PACKAGES=(
 
     )
 
+declare -a DEVELOPMENT_PACKAGES=(
+    global
+    )
+
+# TODO: Install gnu 'global', and copy/link 'global.vim' into '~/.vim/bundle/'
 
 # TODO: Add symlinks related to config files / scripts stored in this repo.
 
