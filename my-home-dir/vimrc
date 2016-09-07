@@ -28,28 +28,13 @@ Plugin 'jlanzarotta/bufexplorer'
 
 Plugin 'vim-scripts/taglist.vim'
 
-"All of your Plugins must be added before the following line
+"Plugin 'vim-scripts/gtags.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-
-
-
 " Put your non-Plugin stuff after this line
-
-" """"""""""""""""""""""""""""""""""""""""
-" End Vundle
-" """"""""""""""""""""""""""""""""""""""""
-
+"
+""
 " get hostname
 let machine = substitute(system('hostname'), "\n", "", "")
 " auto strip whitespace when saving
@@ -66,7 +51,6 @@ if (machine ==? 'spaceman') || (machine ==? 'tracerb')
 else
     "echo "NO MATCH"
 endif
-
 
 set laststatus=2
 
@@ -88,19 +72,13 @@ nnoremap td  :tabclose<CR>
 " Vim's current working directory matches that of the currently selected buffer.
 autocmd BufEnter * lcd %:p:h
 
-" This doesn't get along with Vundle's installer command:
-"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
-
-"autocmd vimenter * NERDTree
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-"autocmd VimEnter * tab all
-
 colorscheme desert
 set t_Co=256
 
-:nnoremap <F5> :buffers<CR>:buffer<Space>
+nnoremap <F5> :buffers<CR>:buffer<Space>
+map <F2> :BufExplorer<CR>
+map <F3> :bp<CR>
+map <F4> :bn<CR>
 
 
 " tab key = 4 spaces
@@ -146,3 +124,6 @@ augroup END
 " Enabling this causes ctrl-n to no longer activate nerdtree.
 filetype plugin on
 syntax on
+
+set autochdir
+
