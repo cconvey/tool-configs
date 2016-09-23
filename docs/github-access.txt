@@ -1,0 +1,30 @@
+=========================================
+For access using a personal access token:
+=========================================
+* On Github, create a Personal access token, and save it in "~/.netrc.asc".
+  That file's structure should look like this:
+
+machine github.com
+login cconvey
+password <token-goes-here>
+protocol https
+
+* Run this command:
+  git config --global credential.helper "netrc -f ~/.netrc.asc -v"
+
+=========================================
+For access using a private key:
+=========================================
+
+Not sure why this is needed on some boxes but not others.
+I'm sure the reason is simple, but I haven't checked into it...
+
+* Add to ~/.bashrc:
+
+export GIT_SSH=~/git-ssh.sh
+
+* Create ~/git-ssh.sh with this content:
+
+#!/bin/sh
+/usr/bin/ssh -i <some-private-key-for-accessing-my-repos> -l cconvey $@
+
