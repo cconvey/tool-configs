@@ -75,7 +75,13 @@ declare -a DEVELOPMENT_PACKAGES=(
     build-essential
     )
 
-# TODO: Install gnu 'global', and copy/link 'global.vim' into '~/.vim/bundle/'
+function vim_add_vundle {
+    local VUNDLE_DIR=~/.git/bundle/VundleVim
+    mkdir -p "${VUNDLE_DIR}"
+    git clone https://github.com/VundleVim/Vundle.vim.git "${VUNDLE_DIR}"
+    # Once this is done *and* the right .vimrc file is in place, run the shell command 
+    # `vim +PluginInstall +qall`
+}
 
 # TODO: Add symlinks related to config files / scripts stored in this repo.
 
