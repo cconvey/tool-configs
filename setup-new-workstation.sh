@@ -64,12 +64,15 @@ declare -a VIM_POWERLINE_PIP_PACKAGES=(
     )
 declare -a VIM_APT_PACKAGES=(
     python-pip # For powerline
-    git
-
     )
 
 declare -a DEVELOPMENT_PACKAGES=(
-    global
+    git
+    exuberant-ctags
+    subversion
+    bear
+    ccache
+    build-essential
     )
 
 # TODO: Install gnu 'global', and copy/link 'global.vim' into '~/.vim/bundle/'
