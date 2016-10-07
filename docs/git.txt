@@ -1,0 +1,5 @@
+
+Worktree
+========
+git worktree add -b   new-branch-name   ../dir-name   existing-branch
+
