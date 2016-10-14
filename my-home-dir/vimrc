@@ -18,6 +18,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
+Plugin 'jalcine/cmake.vim'
+
+"Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'godlygeek/tabular'
+
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
 " <leader>be
@@ -51,6 +57,20 @@ if (machine ==? 'spaceman') || (machine ==? 'tracerb')
 else
     "echo "NO MATCH"
 endif
+
+autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt,*.cmake.in runtime! indent/cmake.vim 
+autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt,*.cmake.in setf cmake
+autocmd BufRead,BufNewFile *.ctest,*.ctest.in setf cmake
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
+
+
+"augroup markdown
+"    au!
+"    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+"augroup END
+"
 
 set laststatus=2
 
@@ -121,7 +141,6 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 "    autocmd! BufRead * if exists('syntax_on') && exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') != -1 | unlet! b:current_syntax | endif
 augroup END
 
-" Enabling this causes ctrl-n to no longer activate nerdtree.
 filetype plugin on
 syntax on
 
