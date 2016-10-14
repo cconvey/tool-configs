@@ -24,7 +24,7 @@ alias search_c='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp)" 
 alias search_h='/usr/bin/find -regextype posix-extended -regex ".*\.(h)" | xargs grep -n --color'
 alias search_ch='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp|h)" | xargs grep -n --color'
 
-export GREP_OPTIONS='-n --color'
+export GREP_OPTIONS='--color'
 
 function find_powerline_daemon {
     if which powerline-daemon 2>/dev/null; then
@@ -77,6 +77,13 @@ function setup_powerline {
     return 0
 }
 
-setup_powerline || true
+case "$(hostname)"; 
+    spaceman* | tracer-b* )
+        setup_powerline || true
+        ;;
+    * )
+        ;;
+esac
 
 unset -v THIS_SCRIPT_DIR
+
