@@ -77,13 +77,7 @@ function setup_powerline {
     return 0
 }
 
-case "$(hostname)"; 
-    spaceman* | tracer-b* )
-        setup_powerline || true
-        ;;
-    * )
-        ;;
-esac
+#setup_powerline || true
 
 unset -v THIS_SCRIPT_DIR
 
