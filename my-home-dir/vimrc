@@ -27,6 +27,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'majutsushi/tagbar'
 Plugin 'Raimondi/delimitMate'
 
+Plugin 'guns/xterm-color-table.vim'
+
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
 " <leader>be
@@ -37,7 +39,7 @@ Plugin 'Raimondi/delimitMate'
 "(AFAICT), so for now I'm disabling it.
 "Plugin 'jlanzarotta/bufexplorer'
 
-"Plugin 'vim-scripts/taglist.vim'
+Plugin 'vim-scripts/taglist.vim'
 
 "Plugin 'vim-scripts/gtags.vim'
 
@@ -96,10 +98,12 @@ map <C-n> :NERDTreeToggle %:p:h<CR>
 
 "let NERDTreeMapOpenInTab='<ENTER>'
 
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F9> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_autoshowtag = 1
 autocmd FileType * nested :call tagbar#autoopen(0)
+
+nnoremap <F10> :TlistToggle<CR>
 
 "nnoremap th  :tabfirst<CR>
 "nnoremap tj  :tabnext<CR>
@@ -190,6 +194,7 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 set autochdir
 
+set tags=./tags,tags;
 
 "term=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
 "hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
@@ -201,4 +206,14 @@ set autochdir
 
 hi DiffText   cterm=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
 hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
+
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
+
+"Invisible character colors 
+highlight NonText ctermfg=238 
+highlight SpecialKey ctermfg=238
 
