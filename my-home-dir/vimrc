@@ -33,9 +33,11 @@ Plugin 'Raimondi/delimitMate'
 " <leader>bt
 " <leader>bs
 " <leader>bv
-Plugin 'jlanzarotta/bufexplorer'
+"NOTE: I really like bufexplorer, but it has some strage problem with 'tagbar'
+"(AFAICT), so for now I'm disabling it.
+"Plugin 'jlanzarotta/bufexplorer'
 
-Plugin 'vim-scripts/taglist.vim'
+"Plugin 'vim-scripts/taglist.vim'
 
 "Plugin 'vim-scripts/gtags.vim'
 
@@ -74,6 +76,17 @@ let g:vim_markdown_toc_autofit = 1
 "    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 "augroup END
 "
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+  
+" Attempt to determine the type of a file based on its name and possibly
+" its contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.  
+filetype indent plugin on
+ 
+" Enable syntax highlighting
+syntax on
 
 set laststatus=2
 
@@ -88,23 +101,48 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoshowtag = 1
 autocmd FileType * nested :call tagbar#autoopen(0)
 
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
-nnoremap tm  :tabm<Space>
-nnoremap td  :tabclose<CR>
+"nnoremap th  :tabfirst<CR>
+"nnoremap tj  :tabnext<CR>
+"nnoremap tk  :tabprev<CR>
+"nnoremap tl  :tablast<CR>
+"nnoremap tt  :tabedit<Space>
+"nnoremap tn  :tabnext<Space>
+"nnoremap tm  :tabm<Space>
+"nnoremap td  :tabclose<CR>
 
 " Vim's current working directory matches that of the currently selected buffer.
-autocmd BufEnter * lcd %:p:h
+"autocmd BufEnter * lcd %:p:h
 
 colorscheme desert
 set t_Co=256
 
 nnoremap <F5> :buffers<CR>:buffer<Space>
-map <F2> :BufExplorer<CR>
+
+" Lets me switch which buffer is shown in the current window, without
+" complaints regarding unsaved changes.
+set hidden
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+ 
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+
+" Stop certain movements from always going to the first character of a  line.
+" While this behaviour deviates from that of Vi, it does what most users  
+" coming from other editors would expect.
+set nostartofline
+
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+
+"map <F2> :BufExplorer<CR>
 map <F3> :bp<CR>
 map <F4> :bn<CR>
 
@@ -147,10 +185,20 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
     " b:current_syntax, the above handler will do this when the reloaded buffer
     " is displayed in a window again.
 "    autocmd! BufRead * if exists('syntax_on') && exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') != -1 | unlet! b:current_syntax | endif
-augroup END
+"augroup END
 
-filetype plugin on
-syntax on
 
 set autochdir
+
+
+"term=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
+"hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
+
+"highlight DiffAdd cterm=none ctermfg=fg ctermbg=Blue gui=none guifg=fg guibg=Blue
+"highlight DiffDelete cterm=none ctermfg=fg ctermbg=Blue gui=none guifg=fg guibg=Blue
+"highlight DiffChange cterm=none ctermfg=fg ctermbg=Blue gui=none guifg=fg guibg=Blue
+"highlight DiffText cterm=none ctermfg=bg ctermbg=White gui=none guifg=bg guibg=White
+
+hi DiffText   cterm=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
+hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
 
