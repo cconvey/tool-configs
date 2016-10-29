@@ -5,17 +5,18 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+"=======================================================================================================================
+" Vundle ...
+"=======================================================================================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 Plugin 'jalcine/cmake.vim'
@@ -43,12 +44,14 @@ Plugin 'vim-scripts/taglist.vim'
 
 "Plugin 'vim-scripts/gtags.vim'
 
+Plugin 'thinca/vim-localrc'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
-" Put your non-Plugin stuff after this line
-"
-""
+
+"=======================================================================================================================
 " get hostname
+"=======================================================================================================================
 let machine = substitute(system('hostname'), "\n", "", "")
 " auto strip whitespace when saving
 " don't auto strip on these machines
@@ -64,6 +67,8 @@ if (machine ==? 'spaceman') || (machine ==? 'tracerb')
 else
     "echo "NO MATCH"
 endif
+
+"=======================================================================================================================
 
 autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt,*.cmake.in runtime! indent/cmake.vim 
 autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt,*.cmake.in setf cmake
@@ -101,7 +106,7 @@ map <C-n> :NERDTreeToggle %:p:h<CR>
 nnoremap <F9> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_autoshowtag = 1
-autocmd FileType * nested :call tagbar#autoopen(0)
+"autocmd FileType * nested :call tagbar#autoopen(0)
 
 nnoremap <F10> :TlistToggle<CR>
 
