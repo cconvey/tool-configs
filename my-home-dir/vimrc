@@ -46,6 +46,8 @@ Plugin 'vim-scripts/taglist.vim'
 
 Plugin 'thinca/vim-localrc'
 
+Plugin 'tmhedberg/matchit'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
