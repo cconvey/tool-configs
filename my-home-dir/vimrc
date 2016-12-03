@@ -232,3 +232,8 @@ autocmd BufWritePre * StripWhitespace
 "binding work
 
 set showcmd
+
+"Make jumping to matching delimeter also cause visual selection of the
+"intervening region.
+noremap % v%
+
