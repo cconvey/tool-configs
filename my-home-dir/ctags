@@ -1,3 +1,5 @@
---recurse --extra=+afikKlmnsSzt --C-kinds=+d
-
+--recurse
+--extra=+fq
+--fields=+afikKlmnsSzt
+--C-kinds=+d
 
