@@ -225,6 +225,8 @@ set listchars=tab:▸\ ,eol:¬
 highlight NonText ctermfg=238
 highlight SpecialKey ctermfg=238
 
+set pastetoggle=<F11>
+
 "For Plugin 'ntpeters/vim-better-whitespace'
 let g:better_whitespace_verbosity=1
 autocmd BufWritePre * StripWhitespace
