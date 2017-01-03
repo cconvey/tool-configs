@@ -7,8 +7,8 @@ HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S: '
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
 export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): } '
 
-alias ll="ls -l"
-alias lla="ls -la"
+alias ll="ls -l --color=auto"
+alias lla="ls -la --color=auto"
 
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
 export VISUAL=/usr/bin/vim
@@ -24,7 +24,7 @@ alias search_c='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp)" 
 alias search_h='/usr/bin/find -regextype posix-extended -regex ".*\.(h)" | xargs grep -n --color'
 alias search_ch='/usr/bin/find -regextype posix-extended -regex ".*\.(c|cc|cpp|h)" | xargs grep -n --color'
 
-export GREP_OPTIONS='--color'
+#export GREP_OPTIONS='--color'
 
 function find_powerline_daemon {
     if which powerline-daemon 2>/dev/null; then

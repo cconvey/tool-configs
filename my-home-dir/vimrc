@@ -60,10 +60,11 @@ let machine = substitute(system('hostname'), "\n", "", "")
 " don't auto strip on these machines
 "echo 'machine: ' machine
 if (machine ==? 'spaceman') || (machine ==? 'tracerb')
-"if machine =~ '[spaceman|tracerb]'
     "echo "MATCH"
     " Not all machines have powerline installed.  Base it on machine name, for
     " now.
+    "python import powerline.vim
+    "python powerline.vim.setup()
     python from powerline.vim import setup as powerline_setup
     python powerline_setup()
     python del powerline_setup
