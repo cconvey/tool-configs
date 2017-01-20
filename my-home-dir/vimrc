@@ -31,6 +31,8 @@ Plugin 'ntpeters/vim-better-whitespace'
 
 Plugin 'guns/xterm-color-table.vim'
 
+Plugin 'powerline/powerline'
+
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
 " <leader>be
