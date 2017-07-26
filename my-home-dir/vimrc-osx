@@ -1,0 +1,244 @@
+" """"""""""""""""""""""""""""""""""""""""
+" For Vundle...
+" """"""""""""""""""""""""""""""""""""""""
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+"=======================================================================================================================
+" Vundle ...
+"=======================================================================================================================
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+Plugin 'jalcine/cmake.vim'
+
+Plugin 'plasticboy/vim-markdown'
+Plugin 'godlygeek/tabular'
+
+Plugin 'majutsushi/tagbar'
+"Plugin 'Raimondi/delimitMate'
+
+Plugin 'ntpeters/vim-better-whitespace'
+
+Plugin 'guns/xterm-color-table.vim'
+
+Plugin 'powerline/powerline'
+
+" See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
+" Primary key bindings:
+" <leader>be
+" <leader>bt
+" <leader>bs
+" <leader>bv
+"NOTE: I really like bufexplorer, but it has some strage problem with 'tagbar'
+"(AFAICT), so for now I'm disabling it.
+"Plugin 'jlanzarotta/bufexplorer'
+
+Plugin 'vim-scripts/taglist.vim'
+
+"Plugin 'vim-scripts/gtags.vim'
+
+Plugin 'thinca/vim-localrc'
+
+Plugin 'tmhedberg/matchit'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"=======================================================================================================================
+" get hostname
+"=======================================================================================================================
+let machine = substitute(system('hostname'), "\n", "", "")
+" auto strip whitespace when saving
+" don't auto strip on these machines
+"echo 'machine: ' machine
+if (machine ==? 'spaceman') || (machine ==? 'tracerb')
+    "echo "MATCH"
+    " Not all machines have powerline installed.  Base it on machine name, for
+    " now.
+    "python import powerline.vim
+    "python powerline.vim.setup()
+    python from powerline.vim import setup as powerline_setup
+    python powerline_setup()
+    python del powerline_setup
+else
+    "echo "NO MATCH"
+endif
+
+"=======================================================================================================================
+
+autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt,*.cmake.in runtime! indent/cmake.vim
+autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt,*.cmake.in setf cmake
+autocmd BufRead,BufNewFile *.ctest,*.ctest.in setf cmake
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
+
+
+"augroup markdown
+"    au!
+"    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+"augroup END
+"
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+
+" Attempt to determine the type of a file based on its name and possibly
+" its contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
+
+" Enable syntax highlighting
+syntax on
+
+set laststatus=2
+
+set number
+
+map <C-n> :NERDTreeToggle %:p:h<CR>
+
+"let NERDTreeMapOpenInTab='<ENTER>'
+
+nnoremap <F9> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+let g:tagbar_autoshowtag = 1
+"autocmd FileType * nested :call tagbar#autoopen(0)
+
+nnoremap <F10> :TlistToggle<CR>
+
+"nnoremap th  :tabfirst<CR>
+"nnoremap tj  :tabnext<CR>
+"nnoremap tk  :tabprev<CR>
+"nnoremap tl  :tablast<CR>
+"nnoremap tt  :tabedit<Space>
+"nnoremap tn  :tabnext<Space>
+"nnoremap tm  :tabm<Space>
+"nnoremap td  :tabclose<CR>
+
+" Vim's current working directory matches that of the currently selected buffer.
+"autocmd BufEnter * lcd %:p:h
+
+colorscheme desert
+set t_Co=256
+
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
+" Lets me switch which buffer is shown in the current window, without
+" complaints regarding unsaved changes.
+set hidden
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+
+" Stop certain movements from always going to the first character of a  line.
+" While this behaviour deviates from that of Vi, it does what most users
+" coming from other editors would expect.
+set nostartofline
+
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+
+"map <F2> :BufExplorer<CR>
+map <F3> :bp<CR>
+map <F4> :bn<CR>
+
+
+" tab key = 4 spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+" Enable syntax highlighting when buffers are displayed in a window through
+" :argdo and :bufdo, which disable the Syntax autocmd event to speed up
+" processing.
+"augroup EnableSyntaxHighlighting
+    " Filetype processing does happen, so we can detect a buffer initially
+    " loaded during :argdo / :bufdo through a set filetype, but missing
+    " b:current_syntax. Also don't do this when the user explicitly turned off
+    " syntax highlighting via :syntax off.
+    " The following autocmd is triggered twice:
+    " 1. During the :...do iteration, where it is inactive, because
+    " 'eventignore' includes "Syntax". This speeds up the iteration itself.
+    " 2. After the iteration, when the user re-enters a buffer / window that was
+    " loaded during the iteration. Here is becomes active and enables syntax
+    " highlighting. Since that is done buffer after buffer, the delay doesn't
+    " matter so much.
+    " Note: When the :...do command itself edits the window (e.g. :argdo
+    " tabedit), the BufWinEnter event won't fire and enable the syntax when the
+    " window is re-visited. We need to hook into WinEnter, too. Note that for
+    " :argdo split, each window only gets syntax highlighting as it is entered.
+    " Alternatively, we could directly activate the normally effectless :syntax
+    " enable through :set eventignore-=Syntax, but that would also cause the
+    " slowdown during the iteration Vim wants to avoid.
+    " Note: Must allow nesting of autocmds so that the :syntax enable triggers
+    " the ColorScheme event. Otherwise, some highlighting groups may not be
+    " restored properly.
+ "   autocmd! BufWinEnter,WinEnter * nested if exists('syntax_on') && ! exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') == -1 | syntax enable | endif
+
+    " The above does not handle reloading via :bufdo edit!, because the
+    " b:current_syntax variable is not cleared by that. During the :bufdo,
+    " 'eventignore' contains "Syntax", so this can be used to detect this
+    " situation when the file is re-read into the buffer. Due to the
+    " 'eventignore', an immediate :syntax enable is ignored, but by clearing
+    " b:current_syntax, the above handler will do this when the reloaded buffer
+    " is displayed in a window again.
+"    autocmd! BufRead * if exists('syntax_on') && exists('b:current_syntax') && ! empty(&l:filetype) && index(split(&eventignore, ','), 'Syntax') != -1 | unlet! b:current_syntax | endif
+"augroup END
+
+
+set autochdir
+
+set tags=./tags,tags;
+
+"term=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
+"hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
+
+"highlight DiffAdd cterm=none ctermfg=fg ctermbg=Blue gui=none guifg=fg guibg=Blue
+"highlight DiffDelete cterm=none ctermfg=fg ctermbg=Blue gui=none guifg=fg guibg=Blue
+"highlight DiffChange cterm=none ctermfg=fg ctermbg=Blue gui=none guifg=fg guibg=Blue
+"highlight DiffText cterm=none ctermfg=bg ctermbg=White gui=none guifg=bg guibg=White
+
+hi DiffText   cterm=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
+hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
+
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
+
+"Invisible character colors
+highlight NonText ctermfg=238
+highlight SpecialKey ctermfg=238
+
+set pastetoggle=<F11>
+
+"For Plugin 'ntpeters/vim-better-whitespace'
+let g:better_whitespace_verbosity=1
+autocmd BufWritePre * StripWhitespace
+"nmap <Leader>w ToggleWhiteSpace  "I haven't been able to make this key
+"binding work
+
+set showcmd
+
+"Make jumping to matching delimeter also cause visual selection of the
+"intervening region.
+noremap % v%
+
