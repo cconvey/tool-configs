@@ -19,17 +19,17 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-Plugin 'jalcine/cmake.vim'
+"Plugin 'jalcine/cmake.vim'
 
 Plugin 'plasticboy/vim-markdown'
 Plugin 'godlygeek/tabular'
 
 Plugin 'majutsushi/tagbar'
-Plugin 'Raimondi/delimitMate'
+"Plugin 'Raimondi/delimitMate'
 
 Plugin 'ntpeters/vim-better-whitespace'
 
-Plugin 'guns/xterm-color-table.vim'
+"Plugin 'guns/xterm-color-table.vim'
 
 Plugin 'powerline/powerline'
 
@@ -60,19 +60,11 @@ filetype plugin indent on    " required
 let machine = substitute(system('hostname'), "\n", "", "")
 " auto strip whitespace when saving
 " don't auto strip on these machines
-"echo 'machine: ' machine
-if (machine ==? 'spaceman') || (machine ==? 'tracerb')
-    "echo "MATCH"
-    " Not all machines have powerline installed.  Base it on machine name, for
-    " now.
-    "python import powerline.vim
-    "python powerline.vim.setup()
-    python from powerline.vim import setup as powerline_setup
-    python powerline_setup()
-    python del powerline_setup
-else
-    "echo "NO MATCH"
-endif
+
+python import sys
+python sys.path.append('/home/cconvey/.vim/bundle/powerline')
+python import powerline.vim
+python powerline.vim.setup()
 
 "=======================================================================================================================
 
