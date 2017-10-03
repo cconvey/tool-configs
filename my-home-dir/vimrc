@@ -31,7 +31,10 @@ Plugin 'ntpeters/vim-better-whitespace'
 
 "Plugin 'guns/xterm-color-table.vim'
 
-Plugin 'powerline/powerline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'shaneharper/vim-rtags'
 
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
@@ -60,11 +63,6 @@ filetype plugin indent on    " required
 let machine = substitute(system('hostname'), "\n", "", "")
 " auto strip whitespace when saving
 " don't auto strip on these machines
-
-python import sys
-python sys.path.append('/home/cconvey/.vim/bundle/powerline')
-python import powerline.vim
-python powerline.vim.setup()
 
 "=======================================================================================================================
 
@@ -233,4 +231,7 @@ set showcmd
 "Make jumping to matching delimeter also cause visual selection of the
 "intervening region.
 noremap % v%
+
+"Use the system clipboard for the unnamed register.
+set clipboard=unnamedplus
 
