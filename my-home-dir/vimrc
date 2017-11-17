@@ -36,6 +36,8 @@ Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'shaneharper/vim-rtags'
 
+Plugin 'vim-scripts/DoxygenToolkit.vim'
+
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
 " <leader>be
@@ -235,3 +237,4 @@ noremap % v%
 "Use the system clipboard for the unnamed register.
 set clipboard=unnamedplus
 
+let g:DoxygenToolkit_commentType = "C++"
