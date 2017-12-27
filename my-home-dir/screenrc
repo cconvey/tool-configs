@@ -40,6 +40,9 @@ vbell_msg "   Wuff  ----  Wuff!!  "
 # define a bigger scrollback, default is 100 lines
 defscrollback 10240
 
+#define a way to clear scrollback history
+bind _ eval "scrollback 0" "scrollback 10240" "clear"
+
 # ------------------------------------------------------------------------------
 # SCREEN KEYBINDINGS
 # ------------------------------------------------------------------------------
@@ -149,7 +152,7 @@ term xterm-256color
 
 
 # Open new window in current dir.
-bind c stuff "screen -X chdir \$PWD;screen^M"
-bind ^c stuff "screen -X chdir \$PWD;screen^M"
+#bind c stuff "screen -X chdir \$PWD;screen^M"
+#bind ^c stuff "screen -X chdir \$PWD;screen^M"
 
 
