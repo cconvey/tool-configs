@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+set -u
+
+if [[ ${#} -ne 1 ]]; then
+    echo "Usage: $(basename ${0})  <branch-name>" >2
+    exit 1
+fi
+
+declare BRANCH_NAME="${1}"
+
+declare NEW_BRANCH_DIR="../${BRANCH_NAME}"
+if [[ -d "${NEW_BRANCH_DIR}" ]]; then
+    echo "Directory ${NEW_BRANCH_DIR} already exists." >2
+    exit 1
+fi
+
+git worktree add "${BRANCH_NAME}" "../${BRANCH_NAME}"
+
+cd "${NEW_BRANCH_DIR}"
+
+git push --set-upstream origin "${BRANCH_NAME}"
+
+
