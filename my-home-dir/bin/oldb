@@ -15,10 +15,7 @@ if [[ -d "${NEW_BRANCH_DIR}" ]]; then
     exit 1
 fi
 
-git worktree add "${BRANCH_NAME}" "../${BRANCH_NAME}"
+git worktree add  "../${BRANCH_NAME}" "origin/${BRANCH_NAME}"
 
 cd "${NEW_BRANCH_DIR}"
-
-git push --set-upstream origin "${BRANCH_NAME}"
-
 
