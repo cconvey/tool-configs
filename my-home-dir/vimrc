@@ -38,6 +38,8 @@ Plugin 'shaneharper/vim-rtags'
 
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 
+Plugin 'airblade/vim-gitgutter'
+
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
 " <leader>be
