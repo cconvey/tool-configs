@@ -18,3 +18,7 @@
 [branch]
 	autosetuprebase = always
 	autosetupmerge = always
+
+[diff]
+        submodule = log
+
