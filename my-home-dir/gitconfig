@@ -22,3 +22,5 @@
 [diff]
         submodule = log
 
+[submodule]
+	fetchJobs = 0
