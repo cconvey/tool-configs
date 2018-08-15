@@ -3,7 +3,7 @@
 
 declare THIS_SCRIPT_DIR="$(readlink -f $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) )"
 
-export PATH+=${THIS_SCRIPT_DIR}/bin:${PATH}
+export PATH=${HOME}/bin:${PATH}
 
 # append to the history file, don't overwrite it
 shopt -s histappend
