@@ -1,6 +1,7 @@
 host github.com
-    HostName ssh.github.com
-    Port 443
     IdentityFile ~/.ssh/id_rsa
     User git
+    # These sometimes work around proxy issues when behind a VPN...
+    HostName ssh.github.com
+    Port 443
 
