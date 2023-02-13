@@ -1,0 +1,51 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+declare -a ACK_OPTIONS
+declare -a ACK_DIRS=()
+declare DIR
+declare PATTERN
+declare PATTERN_IS_SET=no
+
+for ARG; do
+    echo ""
+    echo "ARG: ${ARG}"
+    echo "PATTERN: ${PATTERN:-unset}"
+    echo "ACK_OPTIONS: ${ACK_OPTIONS[@]}"
+    echo "ACK_DIRS: ${ACK_DIRS[@]}"
+
+    case "${ARG}" in
+        -*)
+            ACK_OPTIONS+=("${ARG}")
+            ;;
+
+        *)
+            # The first non-option argument is the pattern...
+            if [[ "${PATTERN_IS_SET}" == no ]]; then
+                PATTERN="${ARG}"
+                PATTERN_IS_SET=yes
+            else
+                if [[ -d "${ARG}" ]]; then
+                    echo BBBBBBBBB
+                    DIR="$(realpath "${ARG}")"
+                    ACK_DIRS+=("${DIR}")
+                else
+                    echo "WARNING: no such directory: ${ARG}" >&2
+                fi
+            fi
+    esac
+done
+
+if (( ${#ACK_DIRS[@]} == 0 )); then
+    echo "ERROR: need to specify at least one directory" >&2
+    exit 1
+fi
+
+if [[ -z PATTERN ]]; then
+    echo "ERROR: no search pattern specified" >&2
+    exit 1
+fi
+
+ack --pager='less -r' ${ACK_OPTIONS[*]}  "${PATTERN}" ${ACK_DIRS[*]}
+
