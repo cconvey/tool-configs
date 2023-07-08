@@ -5,6 +5,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+let mapleader = ","
+set notimeout
+set nottimeout
+
 "=======================================================================================================================
 " Vundle ...
 "=======================================================================================================================
@@ -14,6 +18,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Plugin 'lyuts/vim-rtags'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 
@@ -39,6 +44,8 @@ Plugin 'shaneharper/vim-rtags'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 
 Plugin 'airblade/vim-gitgutter'
+
+Plugin 'kien/ctrlp.vim'
 
 " See https://github.com/jlanzarotta/bufexplorer/blob/master/doc/bufexplorer.txt
 " Primary key bindings:
