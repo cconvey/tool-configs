@@ -1,0 +1,20 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+GAME_NAME="Torchlight II"
+SRC_DIR="/home/cconvey/.steam/debian-installation/steamapps/common/Torchlight II/my games/runic games/torchlight 2"
+DEST_PARENT="/mnt/big/game-saves/${GAME_NAME}"
+
+TSTAMP="$(/usr/bin/date +%Y-%M-%d-%H:%M:%S)"
+DEST_DIR="${DEST_PARENT}/${TSTAMP}"
+
+mkdir -p "${DEST_PARENT}"
+
+if [[ -e "${DEST_DIR}" ]]; then
+    echo "Error: destination directory/file already exists: '${DEST_DIR}'" >&2
+    exit 1
+fi
+
+cp -R "${SRC_DIR}" "${DEST_DIR}"
+

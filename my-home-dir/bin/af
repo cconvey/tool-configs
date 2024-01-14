@@ -1,0 +1,21 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+if [[ ${#} < 2 ]]; then
+    echo "${0} <cmd> <path1> <path2> ..." >&2
+    exit 1
+fi
+
+declare -a NEW_CMD
+NEW_CMD+=("${1}")
+
+for PATH in ${@:2}; do
+    declare ABS_PATH
+    ABS_PATH="$(/usr/bin/realpath "${PATH}")"
+    NEW_CMD+=("${ABS_PATH}")
+done
+
+echo "NEW_CMD = ${NEW_CMD[@]}"
+
