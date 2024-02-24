@@ -1,0 +1,50 @@
+#!/usr/bin/bash
+set -o errexit
+set -o nounset
+
+tuned-adm profile laptop-battery-powersave
+sudo service tuned restart
+
+# See https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-power
+ENO_PCI_DEVICE=/sys/bus/pci/devices/0000:03:00.0
+
+NVIDIA_GPU_SYS_BUS_NODE="/sys/bus/pci/devices/0000:01:00.0"
+NVIDIA_GPU_SYS_DEVICES_NODE="/sys/devices/pci0000:00/0000:00:01.0"
+
+minimize_dgpu_power() {
+    echo "*** Minimize dGPU power ***"
+
+    if [[ ! -d "${NVIDIA_GPU_SYS_BUS_NODE}" ]]; then
+        echo "nVidia device node '${NVIDIA_GPU_SYS_BUS_NODE}' not found.  Skipping."
+        return
+    fi
+
+    # Right now our only strategy is to delete the PCI device node for the GPU if the
+    # device is 'active'...
+    declare GRAPHICS_MODE
+    SYSTEM76_GRAPHICS_MODE="$(system76-power graphics)"
+    echo "System-76 graphics mode: ${SYSTEM76_GRAPHICS_MODE}"
+
+    case "${SYSTEM76_GRAPHICS_MODE}" in
+        integrated)
+            echo -n "Removing nVidia GPU device node..."
+            echo 1 | sudo tee "${NVIDIA_GPU_SYS_BUS_NODE}/remove" > /dev/null
+            echo " done."
+            echo "You can recreate this using the command: echo 1 | sudo tee '${NVIDIA_GPU_SYS_DEVICES_NODE}/rescan'"
+            ;;
+        *)
+            echo "Leaving nVidia GPU device node intact."
+            ;;
+
+        esac
+}
+
+minimize_ethernet_power() {
+    echo "*** Minimize Ethernet power ***"
+    # minimize power usage of wired ethernet
+    echo disabled | sudo tee "${ENO_PCI_DEVICE}/power/wakeup"
+}
+
+minimize_ethernet_power
+minimize_dgpu_power
+
